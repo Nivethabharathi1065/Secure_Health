@@ -391,27 +391,6 @@ python3 fhe_predict.py
 
 Answer `y` or `n` for each symptom, and get the result in the terminal.
 
----
-
-## Model Performance
-
-| Metric | Value |
-|---|---|
-| Plaintext Accuracy | **91.57%** |
-| FHE Encrypted Accuracy | **91.57%** (bit-exact match) |
-| Precision | ~0.92 |
-| Recall | ~0.91 |
-| F1-Score | ~0.915 |
-| Encrypted Inference Time | **~8–12 seconds** per prediction |
-| Plaintext Inference Time | ~0.01 seconds |
-| FHE Overhead | ~859× slower (privacy cost) |
-| Model | XGBoost (n_bits=4, 50 trees, depth=3) |
-| Encryption | TFHE via Concrete ML |
-
-> The accuracy is **identical** between plaintext and encrypted modes — FHE introduces zero accuracy degradation for this configuration.
-
----
-
 ## Security Features
 
 ### 1. Password Hashing (PBKDF2-SHA256)
@@ -441,62 +420,6 @@ Answer `y` or `n` for each symptom, and get the result in the terminal.
 | Rainbow Table | Per-user random salt prevents precomputed attacks |
 | Brute Force | 600,000 hash iterations make cracking extremely costly |
 
----
-
-## Troubleshooting
-
-### ❌ `concrete` not found / import error
-```bash
-# Make sure virtualenv is activated
-source ~/concrete_env/bin/activate
-pip install concrete-ml
-```
-
-### ❌ `dataset.xlsx` not found
-```bash
-# Make sure you are in the right directory
-cd ~/DPSA_CONCRETE_ML
-ls dataset.xlsx   # Should show the file
-```
-
-### ❌ WSL localhost not opening in browser
-Try these URLs in your Windows browser:
-```
-http://localhost:5000
-http://127.0.0.1:5000
-```
-Or find your WSL IP:
-```bash
-ip addr show eth0 | grep inet
-```
-Then use `http://<that-ip>:5000`
-
-### ❌ FHE compilation is very slow / running out of memory
-- Close other applications to free RAM
-- FHE compilation needs ~2–4 GB RAM
-- This step is **one-time only** — once `saved_model/` exists, retraining is not needed
-
-### ❌ Port 5000 already in use
-```bash
-# Find and kill the process using port 5000
-sudo lsof -i :5000
-kill -9 <PID>
-# Or use a different port:
-# Edit the last line of app.py: port=5001
-```
-
-### ❌ `openpyxl` missing when loading dataset
-```bash
-pip install openpyxl
-```
-
-### ❌ Model loading stuck at 0% in browser
-- The model loads in background after `python3 app.py`
-- Check your terminal for error messages
-- Make sure `saved_model/` folder exists (run `train.py` first)
-- The loading page auto-refreshes every 2 seconds
-
----
 
 ## Quick Start Summary
 
@@ -534,15 +457,3 @@ python3 app.py
 | Frontend | Jinja2 HTML + CSS (dark theme) |
 | Platform | WSL2 + Ubuntu 22.04 |
 
----
-
-## Disclaimer
-
-> ⚠️ This system is built for **educational and research purposes only**.  
-> It is **not a medical diagnosis tool**.  
-> Always consult a qualified gynecologist or healthcare professional for proper diagnosis and treatment.
-
----
-
-*Data Privacy and Security Analytics Laboratory | CAT-1*  
-*Hari Priya K · Nivetha Bharathi P*
