@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Model - SecureHealth</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="loading-page">
+
+    <div class="stars"></div>
+    <div class="stars2"></div>
+
+    <nav class="nav-bar">
+        <a href="{{ url_for('dashboard') }}" class="nav-logo">🔐 SecureHealth</a>
+        <div class="nav-links">
+            <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+        </div>
+    </nav>
+
+    <div class="loading-container">
+
+        {% if error %}
+        <!-- ================= ERROR STATE ================= -->
+        <div class="error-card">
+            <div class="error-icon">❌</div>
+            <h2>Model Loading Failed</h2>
+            <p class="error-message">{{ error }}</p>
+
+            <div class="error-actions">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-primary">
+                    Back to Dashboard
+                </a>
+            </div>
+
+            <div class="error-help">
+                <strong>Troubleshooting steps:</strong>
+                <ul>
+                    <li>Run <code>train_once.py</code> at least once</li>
+                    <li>Check that <code>saved_model/</code> folder exists and contains:
+                        <ul>
+                            <li><code>client.zip</code></li>
+                            <li><code>server.zip</code></li>
+                            <li><code>symptoms_list.pkl</code></li>
+                        </ul>
+                    </li>
+                    <li>Make sure Concrete-ML is installed (<code>pip show concrete-ml</code>)</li>
+                    <li>Check Flask console / terminal for detailed error messages</li>
+                    <li>Verify Python version (3.8–3.11 usually best for Concrete-ML)</li>
+                </ul>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- ================= LOADING STATE ================= -->
+        <div class="loading-card">
+
+            <div class="loading-icon">
+                <div class="spinner-large"></div>
+            </div>
+
+            <h2>Loading FHE Model...</h2>
+            <p class="loading-message" id="status-message">
+                {{ message|default("Initializing secure model...") }}
+            </p>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <div class="progress-text" id="progress-text">
+                    {{ progress|default(0) }}%
+                </div>
+            </div>
+
+            <div class="loading-info">
+                <p><strong>Current steps:</strong></p>
+                <ul>
+                    <li>Loading FHE client and server artifacts</li>
+                    <li>Preparing / loading cryptographic keys</li>
+                    <li>Running warm-up inference</li>
+                    <li>Building & caching encryption tables</li>
+                </ul>
+                <p class="loading-note">
+                    <strong>First load typically takes 60–180 seconds.</strong><br>
+                    Please do not refresh or close this page ⏳
+                </p>
+            </div>
+
+        </div>
+        {% endif %}
+
+    </div>
+
+    {% if not error %}
+    <script>
+        function checkModelStatus() {
+            fetch("/api/model_status")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (!data) return;
+
+                    const progressFill = document.getElementById("progress-fill");
+                    const progressText = document.getElementById("progress-text");
+                    const statusMsg    = document.getElementById("status-message");
+
+                    if (progressFill && progressText && statusMsg) {
+                        const prog = Math.min(Math.max((data.progress ?? 0), 0), 100);
+                        progressFill.style.width = prog + "%";
+                        progressText.textContent = prog + "%";
+                        statusMsg.textContent = data.message || "Processing...";
+                    }
+
+                    if (data.ready === true) {
+                        window.location.href = "{{ url_for('predict') }}";
+                    } else if (data.error) {
+                        // Optional: could show error message on page instead of reload
+                        window.location.reload();
+                    } else {
+                        setTimeout(checkModelStatus, 1800);
+                    }
+                })
+                .catch(err => {
+                    console.error("Model status fetch failed:", err);
+                    setTimeout(checkModelStatus, 4000); // slower retry when network fails
+                });
+        }
+
+        // Start polling after short delay
+        setTimeout(checkModelStatus, 1200);
+    </script>
+    {% endif %}
+
+</body>
+</html>

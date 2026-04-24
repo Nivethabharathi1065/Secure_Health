@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Result - SecureHealth</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="result-page">
+    <div class="stars"></div>
+    
+    <nav class="nav-bar">
+        <a href="{{ url_for('dashboard') }}" class="nav-logo">🔐 SecureHealth</a>
+        <div class="nav-links">
+            <span class="nav-user">👤 {{ username }}</span>
+            <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+            <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+        </div>
+    </nav>
+
+    <main class="result-content">
+        <div class="result-header">
+            <h1>Assessment Complete ✓</h1>
+            <p>Your encrypted prediction has been computed and decrypted locally</p>
+        </div>
+
+        <div class="result-card {% if result.risk == 'HIGH RISK' %}result-high{% else %}result-low{% endif %}">
+            <div class="result-icon">
+                {% if result.risk == 'HIGH RISK' %}
+                    ⚠️
+                {% else %}
+                    ✓
+                {% endif %}
+            </div>
+            
+            <h2 class="result-risk">{{ result.risk }}</h2>
+            
+            <div class="result-probability">
+                <div class="probability-circle">
+                    <div class="probability-text">
+                        <span class="percentage">{{ result.percentage }}%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-details">
+                <div class="detail-row">
+                    <span class="detail-label">Symptoms Selected:</span>
+                    <span class="detail-value">{{ result.symptoms_count }} / 15</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Raw Probability:</span>
+                    <span class="detail-value">{{ result.raw_probability }}</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Encrypted Inference Time:</span>
+                    <span class="detail-value">{{ result.encrypted_time }}s</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Encryption Method:</span>
+                    <span class="detail-value">Fully Homomorphic (FHE)</span>
+                </div>
+            </div>
+        </div>
+
+        {% if selected_symptoms %}
+        <div class="symptoms-summary">
+            <h3>Selected Symptoms</h3>
+            <div class="symptoms-list">
+                {% for symptom in selected_symptoms %}
+                <div class="symptom-tag">{{ symptom }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="result-interpretation">
+            <h3>Understanding Your Result</h3>
+
+            {% if result.risk == 'HIGH RISK' %}
+            <div class="interpretation-box interpretation-high">
+                <p><strong>Higher Risk Indication:</strong> The model predicts a probability of {{ result.percentage }}% based on your symptom combination.</p>
+                <p><strong>What this means:</strong> This combination of symptoms may warrant medical attention. Consider consulting a healthcare professional.</p>
+            </div>
+            {% else %}
+            <div class="interpretation-box interpretation-low">
+                <p><strong>Lower Risk Indication:</strong> The model predicts a probability of {{ result.percentage }}% based on your symptom combination.</p>
+                <p><strong>What this means:</strong> This symptom pattern shows lower probability according to the model's training data.</p>
+            </div>
+            {% endif %}
+
+            <div class="disclaimer">
+                <strong>⚠️ Important Disclaimer:</strong> This is a research prototype using machine learning and FHE technology. 
+                Results are not medical diagnoses and should not replace professional medical advice. Always consult qualified 
+                healthcare providers for medical concerns.
+            </div>
+        </div>
+
+        <!-- Research metrics section (for reports/papers) -->
+        <section class="analysis-section mt-2">
+            <h3>📊 Research Metrics (This Prediction)</h3>
+            <div class="metrics-grid">
+                <!-- 1. Prediction accuracy: plaintext vs encrypted -->
+                <div class="metric-card">
+                    <div class="metric-icon">🎯</div>
+                    {% if model_metrics %}
+                    <div class="metric-value">
+                        {{ (model_metrics.plaintext_accuracy * 100)|round(2) }}% /
+                        {{ (model_metrics.encrypted_accuracy * 100)|round(2) }}%
+                    </div>
+                    <div class="metric-label">Prediction Accuracy (Plaintext / Encrypted)</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">
+                        Plaintext test accuracy: <strong>{{ (model_metrics.plaintext_accuracy * 100)|round(2) }}%</strong>,
+                        Encrypted (FHE) test accuracy: <strong>{{ (model_metrics.encrypted_accuracy * 100)|round(2) }}%</strong>.
+                        In Concrete ML, encrypted inference is bit‑exact, so both values are theoretically identical.
+                    </p>
+                    {% else %}
+                    <div class="metric-value">Bit‑exact</div>
+                    <div class="metric-label">Prediction Accuracy (Plaintext vs Encrypted)</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">
+                        FHE predictions are mathematically equivalent to plaintext inference, so there is <strong>0% accuracy loss</strong>
+                        when moving from plaintext to encrypted evaluation.
+                    </p>
+                    {% endif %}
+                </div>
+
+                <!-- 2. Encrypted inference latency -->
+                <div class="metric-card">
+                    <div class="metric-icon">⏱️</div>
+                    <div class="metric-value">{{ result.encrypted_time }}s</div>
+                    <div class="metric-label">Encrypted Inference Latency</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">
+                        Time taken by the FHE model to process this encrypted input and return a decrypted prediction on the client.
+                    </p>
+                </div>
+
+                <!-- 3. Model performance overhead due to FHE -->
+                <div class="metric-card">
+                    <div class="metric-icon">⚙️</div>
+                    <div class="metric-value">
+                        ~{{ (result.encrypted_time / 0.01)|round(0) }}x
+                    </div>
+                    <div class="metric-label">FHE Performance Overhead</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">
+                        Compared to an estimated plaintext latency of <strong>0.01s</strong> per inference, this encrypted run is
+                        approximately <strong>{{ (result.encrypted_time / 0.01)|round(0) }}x</strong> slower due to FHE computation.
+                    </p>
+                </div>
+
+                <!-- 4. Precision -->
+                <div class="metric-card">
+                    <div class="metric-icon">📐</div>
+                    {% if model_metrics and model_metrics.precision is defined %}
+                    <div class="metric-value">{{ (model_metrics.precision * 100)|round(2) }}%</div>
+                    <div class="metric-label">Precision</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">
+                        Proportion of predicted high-risk cases that were actually high-risk (true positives / (true positives + false positives)).
+                    </p>
+                    {% else %}
+                    <div class="metric-value">—</div>
+                    <div class="metric-label">Precision</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">Re-train the model to see precision.</p>
+                    {% endif %}
+                </div>
+
+                <!-- 5. Recall -->
+                <div class="metric-card">
+                    <div class="metric-icon">🔄</div>
+                    {% if model_metrics and model_metrics.recall is defined %}
+                    <div class="metric-value">{{ (model_metrics.recall * 100)|round(2) }}%</div>
+                    <div class="metric-label">Recall</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">
+                        Proportion of actual high-risk cases correctly identified (true positives / (true positives + false negatives)).
+                    </p>
+                    {% else %}
+                    <div class="metric-value">—</div>
+                    <div class="metric-label">Recall</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">Re-train the model to see recall.</p>
+                    {% endif %}
+                </div>
+
+                <!-- 6. F1 Score -->
+                <div class="metric-card">
+                    <div class="metric-icon">📊</div>
+                    {% if model_metrics and model_metrics.f1_score is defined %}
+                    <div class="metric-value">{{ (model_metrics.f1_score * 100)|round(2) }}%</div>
+                    <div class="metric-label">F1 Score</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">
+                        Harmonic mean of precision and recall; balances both for imbalanced classes.
+                    </p>
+                    {% else %}
+                    <div class="metric-value">—</div>
+                    <div class="metric-label">F1 Score</div>
+                    <p class="mt-1" style="color: var(--text-dim); font-size: 0.9rem;">Re-train the model to see F1.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        <!-- Model performance graphs (same UI as result module) -->
+        {% set plots_available = model_plots_available or {} %}
+        <section class="analysis-section mt-2">
+            <h3>📈 Model Performance Graphs</h3>
+            <div class="metrics-grid charts-grid">
+                {% if plots_available.confusion_matrix %}
+                <div class="metric-card chart-card">
+                    <div class="metric-icon">📋</div>
+                    <div class="metric-label">Confusion Matrix</div>
+                    <img src="{{ url_for('model_plots', filename='confusion_matrix.png') }}" alt="Confusion Matrix" class="result-chart-img" />
+                </div>
+                {% endif %}
+                {% if plots_available.roc_curve %}
+                <div class="metric-card chart-card">
+                    <div class="metric-icon">📈</div>
+                    <div class="metric-label">ROC Curve</div>
+                    <img src="{{ url_for('model_plots', filename='roc_curve.png') }}" alt="ROC Curve" class="result-chart-img" />
+                </div>
+                {% endif %}
+                {% if plots_available.precision_recall_curve %}
+                <div class="metric-card chart-card">
+                    <div class="metric-icon">📉</div>
+                    <div class="metric-label">Precision-Recall Curve</div>
+                    <img src="{{ url_for('model_plots', filename='precision_recall_curve.png') }}" alt="Precision-Recall Curve" class="result-chart-img" />
+                </div>
+                {% endif %}
+            </div>
+            {% if not plots_available.confusion_matrix and not plots_available.roc_curve and not plots_available.precision_recall_curve %}
+            <p class="mt-1" style="color: var(--text-dim);">Run training to generate model performance graphs.</p>
+            {% endif %}
+        </section>
+
+        <!-- Compact narrative container for project report -->
+        <div class="report-summary mt-2">
+            <h3>📄 Research Report Summary (This Run)</h3>
+            <div class="summary-content">
+                <p>
+                    <strong>Prediction accuracy (plaintext vs encrypted):</strong>
+                    For Concrete ML, encrypted inference is <strong>bit‑exact</strong> with plaintext inference,
+                    so the predicted probability of <strong>{{ result.percentage }}%</strong> is the same as if the model
+                    were run without encryption (no accuracy loss due to FHE).
+                </p>
+                <p>
+                    <strong>Encrypted inference latency:</strong>
+                    The fully homomorphic encrypted forward pass for this assessment took
+                    <strong>{{ result.encrypted_time }}s</strong> end‑to‑end on the server + client pipeline.
+                </p>
+                <p>
+                    <strong>Model performance overhead due to homomorphic encryption:</strong>
+                    Assuming an approximate plaintext inference time of <strong>0.01s</strong> per sample,
+                    this encrypted run is about
+                    <strong>{{ (result.encrypted_time / 0.01)|round(0) }}×</strong> slower,
+                    which quantifies the computational cost introduced by FHE for this model.
+                </p>
+            </div>
+        </div>
+
+        <div class="result-actions">
+            <a href="{{ url_for('predict') }}" class="btn btn-primary">
+                New Assessment
+            </a>
+            <a href="{{ url_for('analysis') }}" class="btn btn-secondary">
+                View Analytics
+            </a>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline">
+                Back to Dashboard
+            </a>
+        </div>
+
+        <div class="privacy-notice">
+            <h4>🔐 Privacy Guarantee</h4>
+            <p>This prediction was computed on fully encrypted data. The server never saw your actual symptoms. 
+               Your privacy was maintained throughout the entire process using Fully Homomorphic Encryption.</p>
+        </div>
+    </main>
+</body>
+</html>

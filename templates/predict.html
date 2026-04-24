@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Assessment - SecureHealth</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body class="predict-page">
+    <div class="stars"></div>
+    
+    <nav class="nav-bar">
+        <a href="{{ url_for('dashboard') }}" class="nav-logo">🔐 SecureHealth</a>
+        <div class="nav-links">
+            <span class="nav-user">👤 {{ username }}</span>
+            <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+            <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+        </div>
+    </nav>
+
+    <main class="predict-content">
+
+        <div class="predict-header">
+            <h1>Symptom Assessment</h1>
+            <p>Select all symptoms you are experiencing. Your data will be encrypted before processing.</p>
+        </div>
+
+        <div class="security-notice">
+            🔐 <strong>Privacy Guarantee:</strong> Your data is encrypted using FHE before leaving your device. 
+            The server performs ML inference on encrypted data and never sees your actual inputs.
+        </div>
+
+        <form method="POST" id="predict-form">
+
+            <!-- PERSONAL DETAILS -->
+            <div class="details-container">
+                <h3>Personal Details</h3>
+
+                <div class="details-grid">
+
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" min="1" max="120" required>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <!-- SYMPTOMS -->
+            <div class="symptoms-container">
+                <h3>Check all that apply:</h3>
+                <div class="symptoms-grid">
+                    {% for symptom in symptoms %}
+                    <label class="symptom-checkbox">
+                        <input type="checkbox" name="{{ symptom }}" id="symptom-{{ loop.index }}">
+                        <span class="symptom-label">{{ symptom }}</span>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- SUBMIT -->
+            <div class="form-actions">
+                <div class="selected-count">
+                    Selected: <span id="count">0</span> / {{ symptoms|length }}
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-large" id="submit-btn">
+                    🔒 Compute Risk (Encrypted)
+                </button>
+            </div>
+
+        </form>
+
+        <!-- INFO BOXES -->
+        <div class="info-boxes">
+            <div class="info-box">
+                <h4>⏱️ Processing Time</h4>
+                <p>Encrypted inference typically takes 10-60 seconds depending on system resources. This is normal for FHE computations.</p>
+            </div>
+
+            <div class="info-box">
+                <h4>⚠️ Medical Disclaimer</h4>
+                <p>This tool is for research and educational purposes only. Results should not be used for medical diagnosis. Always consult healthcare professionals.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- LOADING OVERLAY -->
+    <div id="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner-large"></div>
+            <h2>Computing Encrypted Prediction...</h2>
+            <p>This can take 10-60 seconds</p>
+            <p class="loading-tech">Running FHE inference on encrypted data</p>
+            <div class="loading-warning">⚠️ <strong>Do not close or refresh this page</strong></div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const checkboxes = document.querySelectorAll('.symptom-checkbox input');
+        const countDisplay = document.getElementById('count');
+
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', () => {
+                const count = Array.from(checkboxes).filter(c => c.checked).length;
+                countDisplay.textContent = count;
+            });
+        });
+
+        const form = document.getElementById('predict-form');
+        const overlay = document.getElementById('loading-overlay');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', (e) => {
+            const count = Array.from(checkboxes).filter(c => c.checked).length;
+
+            if (count === 0) {
+                e.preventDefault();
+                alert('Please select at least one symptom');
+                return;
+            }
+
+            overlay.style.display = 'flex';
+            submitBtn.disabled = true;
+        });
+    </script>
+
+</body>
+</html>

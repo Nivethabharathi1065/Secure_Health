@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureHealth - Privacy-Preserving Endometriosis Risk Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="landing-page">
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+    
+    <nav class="nav-bar">
+        <div class="nav-logo">🔐 SecureHealth</div>
+        <div class="nav-links">
+            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+            <a href="{{ url_for('register') }}" class="nav-link nav-link-primary">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <main class="hero-section">
+        <div class="hero-badge">
+            <span class="badge-icon">🧬</span>
+            Endometriosis Risk Prediction using Fully Homomorphic Encryption
+        </div>
+        
+        <h1 class="hero-title">
+            Your Endometriosis Risk<br>
+            <span class="gradient-text">Stays Encrypted</span>
+        </h1>
+        
+        <p class="hero-subtitle">
+            AI-powered endometriosis symptom assessment using FHE technology.<br>
+            Your reproductive health data is encrypted end-to-end. Even our servers can't see it.
+        </p>
+
+        <div class="hero-cta">
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">
+                Start Endometriosis Assessment
+                <span class="btn-arrow">→</span>
+            </a>
+            <a href="#features" class="btn btn-secondary btn-large">
+                Learn More
+            </a>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Encrypted Data</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">Zero</div>
+                <div class="stat-label">Server Access</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Endometriosis Symptoms</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FEATURES -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why Secure Endometriosis Screening?</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Private Symptom Submission</h3>
+                    <p>Endometriosis-related symptoms such as pelvic pain, heavy periods, fatigue, and infertility are encrypted before leaving your device.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Concrete ML Model</h3>
+                    <p>XGBoost model trained for endometriosis risk classification and compiled for FHE secure inference.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Encrypted Risk Prediction</h3>
+                    <p>The model computes directly on encrypted health data without decrypting it on the server.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Secure Risk Classification</h3>
+                    <p>Provides Low, Moderate, or High endometriosis risk — decrypted only on your device.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Secure Authentication</h3>
+                    <p>User passwords protected using PBKDF2-SHA256 hashing for secure login.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Modern Privacy Architecture</h3>
+                    <p>Built with Flask, Concrete ML, and Fully Homomorphic Encryption for privacy-first healthcare AI.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="tech-section">
+        <div class="container">
+            <div class="tech-badge">ENDOMETRIOSIS FHE WORKFLOW</div>
+            <h2 class="section-title">How It Works</h2>
+            
+            <div class="tech-flow">
+                <div class="flow-step">
+                    <div class="flow-number">1</div>
+                    <h4>Select Symptoms</h4>
+                    <p>Choose endometriosis-related symptoms from the questionnaire.</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <h4>Client-Side Encryption</h4>
+                    <p>Symptoms encrypted using FHE keys on your device.</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <h4>Encrypted AI Inference</h4>
+                    <p>Concrete ML model computes risk on encrypted data.</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="flow-number">4</div>
+                    <h4>Private Result</h4>
+                    <p>Risk score decrypted locally and shown only to you.</p>
+                </div>
+            </div>
+
+            <div class="tech-note">
+                <strong>Disclaimer:</strong> This tool provides an AI-based endometriosis risk estimation and is not a medical diagnosis. 
+                Always consult a qualified healthcare professional.
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">🔐 SecureHealth</div>
+                    <p>Privacy-preserving Endometriosis Risk Assessment powered by FHE</p>
+                </div>
+                <div class="footer-links">
+                    <a href="{{ url_for('register') }}">Start Assessment</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>Built with Concrete ML • Fully Homomorphic Encryption • Educational Research Project</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

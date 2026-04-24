@@ -1,0 +1,218 @@
+[
+  {
+    "timestamp": "2026-02-05T07:10:39.770529",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 7,
+    "risk_level": "HIGH RISK",
+    "probability": 0.9470583385558292,
+    "encrypted_inference_time": 10.548406600952148
+  },
+  {
+    "timestamp": "2026-02-05T07:12:30.690925",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 2,
+    "risk_level": "LOW RISK",
+    "probability": 0.03570197413505248,
+    "encrypted_inference_time": 9.478308200836182
+  },
+  {
+    "timestamp": "2026-02-05T07:15:29.196136",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 1,
+    "risk_level": "LOW RISK",
+    "probability": 0.23981973736846407,
+    "encrypted_inference_time": 9.446183443069458
+  },
+  {
+    "timestamp": "2026-02-05T07:18:17.043141",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 5,
+    "risk_level": "HIGH RISK",
+    "probability": 0.5411094203029473,
+    "encrypted_inference_time": 9.260688304901123
+  },
+  {
+    "timestamp": "2026-02-06T06:14:13.498401",
+    "username": "pnb1065@gmail.com",
+    "symptoms_count": 3,
+    "risk_level": "LOW RISK",
+    "probability": 0.3226448068625546,
+    "encrypted_inference_time": 8.691886186599731
+  },
+  {
+    "timestamp": "2026-02-11T18:06:21.283923",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "HIGH RISK",
+    "probability": 0.7889283351096202,
+    "encrypted_inference_time": 5.940300703048706
+  },
+  {
+    "timestamp": "2026-02-11T18:16:56.425714",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "LOW RISK",
+    "probability": 0.49999999999999994,
+    "encrypted_inference_time": 7.700979948043823
+  },
+  {
+    "timestamp": "2026-02-11T18:43:37.948009",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "HIGH RISK",
+    "probability": 0.5,
+    "encrypted_inference_time": 10.244704484939575
+  },
+  {
+    "timestamp": "2026-02-11T19:28:09.486788",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 4,
+    "risk_level": "LOW RISK",
+    "probability": 0.22512029286261998,
+    "encrypted_inference_time": 9.329284906387329
+  },
+  {
+    "timestamp": "2026-02-11T19:36:50.907263",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 5,
+    "risk_level": "HIGH RISK",
+    "probability": 0.640338590176104,
+    "encrypted_inference_time": 11.345423698425293
+  },
+  {
+    "timestamp": "2026-02-11T19:57:38.580808",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "LOW RISK",
+    "probability": 0.23981973736846407,
+    "encrypted_inference_time": 9.917036771774292
+  },
+  {
+    "timestamp": "2026-02-11T20:05:14.654742",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "HIGH RISK",
+    "probability": 0.6950950699590334,
+    "encrypted_inference_time": 9.635819435119629
+  },
+  {
+    "timestamp": "2026-02-11T20:07:02.305399",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 4,
+    "risk_level": "LOW RISK",
+    "probability": 0.04526153732044154,
+    "encrypted_inference_time": 8.64619255065918
+  },
+  {
+    "timestamp": "2026-02-11T20:28:34.533736",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "LOW RISK",
+    "probability": 0.23981973736846407,
+    "encrypted_inference_time": 8.58646035194397
+  },
+  {
+    "timestamp": "2026-02-12T03:47:27.615578",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 2,
+    "risk_level": "LOW RISK",
+    "probability": 0.14028716390061263,
+    "encrypted_inference_time": 7.653045892715454
+  },
+  {
+    "timestamp": "2026-02-12T05:51:17.137929",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "LOW RISK",
+    "probability": 0.15052337088369158,
+    "encrypted_inference_time": 5.961608409881592
+  },
+  {
+    "timestamp": "2026-02-12T06:02:30.496075",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "HIGH RISK",
+    "probability": 0.6590893934519799,
+    "encrypted_inference_time": 9.636499643325806
+  },
+  {
+    "timestamp": "2026-02-12T06:02:58.462287",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "LOW RISK",
+    "probability": 0.01598102622696763,
+    "encrypted_inference_time": 8.690776348114014
+  },
+  {
+    "timestamp": "2026-02-12T06:17:15.460968",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 3,
+    "risk_level": "LOW RISK",
+    "probability": 0.14028716390061258,
+    "encrypted_inference_time": 7.9994285106658936
+  },
+  {
+    "timestamp": "2026-02-12T16:26:32.361436",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 7,
+    "risk_level": "LOW RISK",
+    "probability": 0.14028716390061263,
+    "encrypted_inference_time": 8.549244165420532
+  },
+  {
+    "timestamp": "2026-02-12T16:27:40.906762",
+    "username": "nivetha_bharathi",
+    "symptoms_count": 15,
+    "risk_level": "HIGH RISK",
+    "probability": 0.9939947709413467,
+    "encrypted_inference_time": 8.350272178649902
+  },
+  {
+    "timestamp": "2026-03-21T06:19:45.117473",
+    "username": "pnb1065@gmail.com",
+    "symptoms_count": 4,
+    "risk_level": "LOW RISK",
+    "probability": 0.17283134891841556,
+    "encrypted_inference_time": 7.922515392303467
+  },
+  {
+    "timestamp": "2026-03-21T06:21:25.254084",
+    "username": "pnb1065@gmail.com",
+    "symptoms_count": 4,
+    "risk_level": "HIGH RISK",
+    "probability": 0.8494766291163084,
+    "encrypted_inference_time": 7.344695329666138
+  },
+  {
+    "timestamp": "2026-03-21T06:22:47.519419",
+    "username": "pnb1065@gmail.com",
+    "symptoms_count": 4,
+    "risk_level": "LOW RISK",
+    "probability": 0.04895895276508573,
+    "encrypted_inference_time": 7.558653116226196
+  },
+  {
+    "timestamp": "2026-03-21T06:31:42.152692",
+    "username": "sneka",
+    "symptoms_count": 4,
+    "risk_level": "LOW RISK",
+    "probability": 0.02810203042799682,
+    "encrypted_inference_time": 7.223073482513428
+  },
+  {
+    "timestamp": "2026-03-21T06:42:20.955644",
+    "username": "sneka",
+    "symptoms_count": 4,
+    "risk_level": "LOW RISK",
+    "probability": 0.43850920390682824,
+    "encrypted_inference_time": 7.551533937454224
+  },
+  {
+    "timestamp": "2026-03-21T06:43:55.078191",
+    "username": "sneka",
+    "symptoms_count": 5,
+    "risk_level": "HIGH RISK",
+    "probability": 0.9470583385558292,
+    "encrypted_inference_time": 8.037870407104492
+  }
+]

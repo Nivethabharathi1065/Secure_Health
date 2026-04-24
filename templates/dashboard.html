@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endometriosis Dashboard - SecureHealth</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <div class="stars"></div>
+    
+    <nav class="nav-bar">
+        <a href="{{ url_for('dashboard') }}" class="nav-logo">🔐 SecureHealth</a>
+        <div class="nav-links">
+            <span class="nav-user">👤 {{ username }}</span>
+            <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+        </div>
+    </nav>
+
+    <main class="dashboard-content">
+
+        <div class="dashboard-header">
+            <h1>Welcome, {{ username }} 👋</h1>
+            <p>Your Privacy-Preserving Endometriosis Risk Assessment Dashboard</p>
+        </div>
+
+        <div class="dashboard-grid">
+
+            <!-- NEW ASSESSMENT -->
+            <a href="{{ url_for('predict') }}" class="dashboard-card card-primary">
+                <div class="card-icon">🧬</div>
+                <h3>Endometriosis Risk Assessment</h3>
+                <p>Analyze endometriosis-related symptoms securely using Fully Homomorphic Encryption.</p>
+                <div class="card-status">
+                    {% if model_ready %}
+                        <span class="status-badge status-ready">✓ Model Ready</span>
+                    {% else %}
+                        <span class="status-badge status-loading">⏳ Model Loading...</span>
+                    {% endif %}
+                </div>
+                <div class="card-arrow">→</div>
+            </a>
+
+            <!-- ANALYTICS -->
+            <a href="{{ url_for('analysis') }}" class="dashboard-card card-secondary">
+                <div class="card-icon">📊</div>
+                <h3>View Endometriosis Analytics</h3>
+                <p>Analyze prediction accuracy, encrypted latency, and performance metrics.</p>
+                <div class="card-arrow">→</div>
+            </a>
+
+            <!-- WHAT IS ENDOMETRIOSIS -->
+            <div class="dashboard-card card-info">
+                <div class="card-icon">🩺</div>
+                <h3>About Endometriosis</h3>
+                <p>
+                    Endometriosis is a medical condition where tissue similar to the lining of the uterus grows outside the uterus.
+                    It can cause severe pelvic pain, painful periods, heavy bleeding, infertility, and fatigue.
+                </p>
+                <p class="mt-2">
+                    Early risk detection helps women seek timely medical consultation and treatment.
+                </p>
+            </div>
+
+            <!-- TREATMENT & IMPORTANCE -->
+            <div class="dashboard-card card-warning">
+                <div class="card-icon">⚕️</div>
+                <h3>Treatment & Importance</h3>
+                <ul class="info-list">
+                    <li><strong>Medications:</strong> Pain relievers, hormonal therapy</li>
+                    <li><strong>Hormone Treatment:</strong> To reduce abnormal tissue growth</li>
+                    <li><strong>Surgery:</strong> In severe cases to remove endometrial tissue</li>
+                    <li><strong>Fertility Support:</strong> For women facing infertility issues</li>
+                </ul>
+                <p class="mt-2">
+                    Early detection reduces complications and improves quality of life.
+                </p>
+            </div>
+
+            <!-- HOW FHE HELPS -->
+            <div class="dashboard-card card-primary">
+                <div class="card-icon">🔐</div>
+                <h3>Why Privacy Matters</h3>
+                <p>
+                    Endometriosis involves sensitive reproductive health data. 
+                    Our system ensures your data is encrypted before processing.
+                </p>
+                <ul class="info-list">
+                    <li>Data encrypted on client side</li>
+                    <li>Server never sees your symptoms</li>
+                    <li>Prediction computed on encrypted data</li>
+                    <li>Results decrypted only on your device</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- TECHNICAL SPECIFICATIONS -->
+        <div class="tech-specs">
+            <h3>System Specifications</h3>
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-label">ML Model</div>
+                    <div class="spec-value">XGBoost (Endometriosis Dataset)</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Encryption</div>
+                    <div class="spec-value">Fully Homomorphic Encryption</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Features</div>
+                    <div class="spec-value">15 Endometriosis Symptoms</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Framework</div>
+                    <div class="spec-value">Concrete ML</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Security</div>
+                    <div class="spec-value">PBKDF2-SHA256 Password Hashing</div>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-label">Deployment</div>
+                    <div class="spec-value">Flask + Python</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DISCLAIMER -->
+        <div class="dashboard-card card-warning" style="margin-top:30px;">
+            <div class="card-icon">⚠️</div>
+            <h3>Medical Disclaimer</h3>
+            <p>
+                This system provides AI-based risk estimation for educational and research purposes only.
+                It is not a medical diagnosis.
+            </p>
+            <p class="mt-2">
+                Always consult a qualified gynecologist or healthcare professional for proper diagnosis and treatment.
+            </p>
+        </div>
+
+    </main>
+
+    <footer class="footer">
+        <p>🔐 SecureHealth • Privacy-Preserving Endometriosis Detection • Concrete ML</p>
+    </footer>
+</body>
+</html>
