@@ -1,4 +1,4 @@
-# 🔐 Privacy-Preserving Endometriosis Risk Detection
+# 🔐 SECURE HEALTH - Privacy-Preserving Endometriosis Risk Detection
 ### Using Fully Homomorphic Encryption (FHE) + XGBoost + Flask
 t
 
