@@ -1,33 +1,6 @@
 # 🔐 Privacy-Preserving Endometriosis Risk Detection
 ### Using Fully Homomorphic Encryption (FHE) + XGBoost + Flask
-
-> **Submitted by:**  
-> Hari Priya K (71762232014)  
-> Nivetha Bharathi P (71762232034)  
-> *Data Privacy and Security Analytics Laboratory – CAT-1*
-
----
-
-## 📋 Table of Contents
-
-- [About the Project](#about-the-project)
-- [How It Works](#how-it-works)
-- [Project Structure](#project-structure)
-- [System Requirements](#system-requirements)
-- [Step 1 – Install WSL on Windows](#step-1--install-wsl-on-windows)
-- [Step 2 – Set Up Python Environment](#step-2--set-up-python-environment)
-- [Step 3 – Install Dependencies](#step-3--install-dependencies)
-- [Step 4 – Add Project Files](#step-4--add-project-files)
-- [Step 5 – Train the Model](#step-5--train-the-model)
-- [Step 6 – Run the Web App](#step-6--run-the-web-app)
-- [Step 7 – Use the App](#step-7--use-the-app)
-- [Model Performance](#model-performance)
-- [Security Features](#security-features)
-- [Troubleshooting](#troubleshooting)
-
----
-
-## About the Project
+t
 
 This project is a **privacy-preserving web application** that predicts endometriosis risk from self-reported symptoms — without the server ever seeing the user's actual data.
 
